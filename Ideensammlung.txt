@@ -1,3 +1,4 @@
 Hier schreiben wir unsere verschiedene Ideen auf.
 4 hintergründe, 4 Characters
-basic character movement, menu, local coop, finishers healthbars
+basic character movement, menu, local coop, finishers, healthbars
+was ist uns wichtig: Design, smooth running, spass zu 2t

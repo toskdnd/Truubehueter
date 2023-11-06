@@ -1,2 +1,3 @@
 Hier schreiben wir unsere verschiedene Ideen auf.
-4 hintergründe 
+4 hintergründe, 4 Characters
+basic character movement, menu, local coop, finishers healthbars

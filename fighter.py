@@ -21,6 +21,8 @@ class Fighter():
         self.jump = False  # set jump to false when spawning
         self.attacking = False
         self.attack_type = 0
+        self.hit_delay_last = pygame.time.get_ticks()  #make the hits match the animation, experiment
+        self.hit_delay = 300
         self.attack_cooldown = 0
         self.hit = False
         self.health = 100
@@ -32,10 +34,8 @@ class Fighter():
         for y, animation in enumerate(animation_steps):  # here y tracks the number of loops that have passed
             temp_img_list = []
             for x in range(animation):
-                temp_img = sprite_sheet.subsurface(x * self.size, y * self.size, self.size,
-                                                   self.size)  # size of each square sprite
-                temp_img_list.append(
-                    pygame.transform.scale(temp_img, (self.size * self.image_scale, self.size * self.image_scale)))
+                temp_img = sprite_sheet.subsurface(x * self.size, y * self.size, self.size,self.size)  # size of each square sprite
+                temp_img_list.append(pygame.transform.scale(temp_img, (self.size * self.image_scale, self.size * self.image_scale)))
             animation_list.append(temp_img_list)
         return animation_list
 
@@ -69,12 +69,13 @@ class Fighter():
                 # lmao fuck following the tutorial ill do it myself -> see line 24
                 if self.attacking == False:
                     # attack inputs
-                    if key[pygame.K_r] or key[pygame.K_t]:
-                        self.attack(surface, target)
-
+                    if key[pygame.K_r]:
+                        self.attack1(surface, target)
                         # determine the actual input / attack type
                         if key[pygame.K_r]:
                             self.attack_type = 1
+                    elif key[pygame.K_t]:
+                        self.attack2(surface, target)
                         if key[pygame.K_t]:
                             self.attack_type = 2
             #check player 2 controls
@@ -94,12 +95,13 @@ class Fighter():
                 # lmao fuck following the tutorial ill do it myself -> see line 24
                 if self.attacking == False:
                     # attack inputs
-                    if key[pygame.K_KP1] or key[pygame.K_KP2]:
-                        self.attack(surface, target)
-
+                    if key[pygame.K_KP1]:
+                        self.attack1(surface, target)
                         # determine the actual input / attack type
                         if key[pygame.K_KP1]:
                             self.attack_type = 1
+                    elif key[pygame.K_KP2]:
+                        self.attack2(surface, target)
                         if key[pygame.K_KP2]:
                             self.attack_type = 2
 
@@ -181,16 +183,28 @@ class Fighter():
 
 
     # create a attacking hitbox infront of the player
-    def attack(self, surface, target):
+    def attack1(self, surface, target):
+        now = pygame.time.get_ticks()
         if self.attack_cooldown == 0:
             self.attacking = True
-            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y,
-                                         2 * self.rect.width,
-                                         self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2.4 * self.rect.width, self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
             if attacking_rect.colliderect(target.rect):  # introduce generic variable so the target can be defined for each fighter
                 target.health -= 10
                 target.hit = True
             pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+    # attack variation
+    def attack2(self, surface, target):
+        now = pygame.time.get_ticks()
+        if self.attack_cooldown == 0:
+            self.attacking = True
+            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y-180, 1.5 * self.rect.width, 2*self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+            if attacking_rect.colliderect(target.rect):  # introduce generic variable so the target can be defined for each fighter
+                target.health -= 10
+                target.hit = True
+            pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+
+
+
 
     def update_action(self, new_action):
         #check whether if the new action differs from previous one

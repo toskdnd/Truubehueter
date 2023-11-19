@@ -1,7 +1,8 @@
 import pygame
 
 floorheight = 110
-
+global now
+now = 0
 
 class Fighter():
     def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps):
@@ -127,6 +128,7 @@ class Fighter():
         else:
             self.flip = True
 
+
         #apply attack cooldown
         if self.attack_cooldown > 0:
             self.attack_cooldown -= 1
@@ -134,6 +136,7 @@ class Fighter():
         # update player position
         self.rect.x += dx
         self.rect.y += dy
+
 
     #create update method -> handles animation updates
     def update(self):
@@ -184,7 +187,6 @@ class Fighter():
 
     # create a attacking hitbox infront of the player
     def attack1(self, surface, target):
-        now = pygame.time.get_ticks()
         if self.attack_cooldown == 0:
             self.attacking = True
             attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2.4 * self.rect.width, self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand

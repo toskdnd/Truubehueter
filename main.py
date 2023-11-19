@@ -63,7 +63,7 @@ def draw_health_bar(health, x, y):
 
 # create fighters instances
 fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS)
-fighter_2 = Fighter(2, 800, SCREEN_HEIGHT-400, True,  TEMPORARY_DATA, temporary_sheet,TEMPORARY_ANIMATION_STEPS)  # the temporary ones are temporary place holders for it to work
+fighter_2 = Fighter(2, SCREEN_WIDTH-280, SCREEN_HEIGHT-400, True,  TEMPORARY_DATA, temporary_sheet,TEMPORARY_ANIMATION_STEPS)  # the temporary ones are temporary place holders for it to work
 
 # create game loop (never load sprites/images withhin gameloop if background)
 running = True

@@ -89,8 +89,8 @@ while running:
     if intro_count <= 0:
 
     # move fighters
-        fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2, delay)
-        fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1, delay)
+        fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2)
+        fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1)
     else:
         #update countdown timer
         if (pygame.time.get_ticks() - last_count_update) >= 1000:
@@ -99,8 +99,8 @@ while running:
             print(intro_count)
 
     #update fighter animation
-    fighter_1.update()
-    fighter_2.update()
+    fighter_1.update(screen,fighter_2)
+    fighter_2.update(screen, fighter_1)
 
     # draw the character instances
     fighter_1.draw(screen)

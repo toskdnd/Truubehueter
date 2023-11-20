@@ -39,7 +39,7 @@ class Fighter():
             animation_list.append(temp_img_list)
         return animation_list
 
-    def move(self, screen_width, screen_height, surface, target, delay):
+    def move(self, screen_width, screen_height, surface, target):
         SPEED = 10
         GRAVITY = 2
         dx = 0
@@ -58,9 +58,11 @@ class Fighter():
                 if key[pygame.K_a]:
                     dx = -SPEED
                     self.running = True
+                    self.flip = True
                 if key[pygame.K_d]:
                     dx = SPEED
                     self.running = True
+                    self.flip = False
 
                 # jumping
                 if key[pygame.K_w] and self.jump == False:
@@ -84,9 +86,11 @@ class Fighter():
                 if key[pygame.K_LEFT]:
                     dx = -SPEED
                     self.running = True
+                    self.flip = True
                 if key[pygame.K_RIGHT]:
                     dx = SPEED
                     self.running = True
+                    self.flip = False
 
                 # jumping
                 if key[pygame.K_UP] and self.jump == False:
@@ -122,10 +126,10 @@ class Fighter():
             self.jump = False
 
         # ensure players are facing each other
-        if target.rect.centerx > self.rect.centerx:
+        '''if target.rect.centerx > self.rect.centerx:
             self.flip = False
         else:
-            self.flip = True
+            self.flip = True'''
 
 
         #apply attack cooldown
@@ -138,7 +142,7 @@ class Fighter():
 
 
     #create update method -> handles animation updates
-    def update(self):
+    def update(self,surface, target):
         #check which action is being performed, the order of the checks is relevant, although not yet grasped
         if self.health <= 0:
             self.health = 0
@@ -188,6 +192,8 @@ class Fighter():
 
     # create a attacking hitbox infront of the player
     def attack1(self, surface, target):
+        delay_duration = 150
+        delay_timer = pygame.time.get_ticks()
         if self.attack_cooldown == 0:
             self.attacking = True
             attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2.4 * self.rect.width, self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
@@ -195,6 +201,7 @@ class Fighter():
                 target.health -= 10
                 target.hit = True
             pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+
     # attack variation
     def attack2(self, surface, target):
         now = pygame.time.get_ticks()

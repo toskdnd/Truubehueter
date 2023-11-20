@@ -1,8 +1,7 @@
 import pygame
 
 floorheight = 110
-global now
-now = 0
+
 
 class Fighter():
     def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps):
@@ -40,7 +39,7 @@ class Fighter():
             animation_list.append(temp_img_list)
         return animation_list
 
-    def move(self, screen_width, screen_height, surface, target):
+    def move(self, screen_width, screen_height, surface, target, delay):
         SPEED = 10
         GRAVITY = 2
         dx = 0
@@ -147,6 +146,8 @@ class Fighter():
             self.update_action(6) #death
         elif self.hit == True:
             self.update_action(5) # being hit
+            self.rect.x = self.rect.x+1.5*(2*self.flip-1)  #knockback upon hit
+            self.vel_y = -4
         elif self.attacking == True:
             if self.attack_type == 1:
                 self.update_action(3) #attack 1

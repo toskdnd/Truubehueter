@@ -65,6 +65,9 @@ def draw_health_bar(health, x, y):
 fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS)
 fighter_2 = Fighter(2, SCREEN_WIDTH-280, SCREEN_HEIGHT-400, True,  TEMPORARY_DATA, temporary_sheet,TEMPORARY_ANIMATION_STEPS)  # the temporary ones are temporary place holders for it to work
 
+#animation hit issue
+delay = 0
+
 # create game loop (never load sprites/images withhin gameloop if background)
 running = True
 while running:
@@ -74,6 +77,10 @@ while running:
     # draw background
     draw_bg()
 
+    delay += 1
+    if delay >=4:
+        delay = delay -4
+
     # draw healthbars/show player stats
     draw_health_bar(fighter_1.health, 20, 20)
     draw_health_bar(fighter_2.health, SCREEN_WIDTH - 420, 20)
@@ -82,8 +89,8 @@ while running:
     if intro_count <= 0:
 
     # move fighters
-        fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2)
-        fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1)
+        fighter_1.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_2, delay)
+        fighter_2.move(SCREEN_WIDTH, SCREEN_HEIGHT, screen, fighter_1, delay)
     else:
         #update countdown timer
         if (pygame.time.get_ticks() - last_count_update) >= 1000:

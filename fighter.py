@@ -27,6 +27,7 @@ class Fighter():
         self.image_scale = data[1]  # takes second data fed in by STICKMAN_DATA/ TEMPORARY_DATA
         self.offset = data[2]
         self.flip = flip
+        self.kflip = flip
         self.animation_list = self.load_images(sprite_sheet, animation_steps, yoffset)
         self.action = 0  # 0 idle, 1 death, 2 fall, 3 idle, 4 jump, 5 run, 6 take hit| currently for stickman, see line +- 40 in main.py
         self.frame_index = 0
@@ -153,10 +154,10 @@ class Fighter():
             self.jump = False
 
         # ensure players are facing each other
-        '''if target.rect.centerx > self.rect.centerx:
-            self.flip = False
+        if target.rect.centerx > self.rect.centerx:
+            self.kflip = False
         else:
-            self.flip = True'''
+            self.kflip = True
 
 
         #apply attack cooldown
@@ -177,7 +178,7 @@ class Fighter():
             self.update_action(6) #death
         elif self.hit == True:
             self.update_action(5) # being hit
-            self.rect.x = self.rect.x+1.5*(2*self.flip-1)  #knockback upon hit
+            self.rect.x = self.rect.x+1.5*(2*self.kflip-1)  #knockback upon hit
             self.vel_y = -4
         elif self.attacking == True:
             if self.attack_type == 1:

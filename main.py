@@ -42,7 +42,7 @@ stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png"
 temporary_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
 
 # define number of frames per animation
-STICKMAN_ANIMATION_STEPS = [10, 8, 1, 7, 7, 3, 7]
+STICKMAN_ANIMATION_STEPS = [2, 8, 1, 7, 7, 3, 7]
 TEMPORARY_ANIMATION_STEPS = [5, 6, 1, 5, 6, 2, 8]
 
 

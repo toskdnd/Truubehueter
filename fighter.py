@@ -49,7 +49,7 @@ class Fighter():
         self.slap_sound = pygame.mixer.Sound(r"sounds\slap.wav")
         self.sword_miss_sound = pygame.mixer.Sound(r"sounds\sword_no_hit.wav")
         self.sword_hit_sound = pygame.mixer.Sound(r"sounds\sword_with_hit.wav")
-        self.die_sound = pygame.mixer.Sound(r"sounds\sterben.wav")
+        self.death_sound = pygame.mixer.Sound(r"sounds\sterben.wav")
 
     def load_images(self, sprite_sheet, animation_steps):
         # extract images from spritesheet
@@ -205,7 +205,7 @@ class Fighter():
                         target.rect):  # introduce generic variable so the target can be defined for each fighter
                     target.health -= 10
                     target.hit = True
-                pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+                #pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
             elif self.action == 4 and self.frame_index == 3:
                 attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width*self.flip), self.rect.y - 180,
                                              1.5 * self.rect.width,
@@ -214,7 +214,7 @@ class Fighter():
                         target.rect):  # introduce generic variable so the target can be defined for each fighter
                     target.health -= 10
                     target.hit = True
-                pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+                #pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
 
 
             self.update_time = pygame.time.get_ticks()
@@ -254,11 +254,11 @@ class Fighter():
         now = pygame.time.get_ticks()
         if self.attack_cooldown == 0:
             self.attacking = True
-            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width), self.rect.y-180, 1.5 * self.rect.width, 2*self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+            '''attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width), self.rect.y-180, 1.5 * self.rect.width, 2*self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
             if attacking_rect.colliderect(target.rect):  # introduce generic variable so the target can be defined for each fighter
                 target.health -= 10
                 target.hit = True
-            pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+            pygame.draw.rect(surface, (0, 255, 0), attacking_rect)'''
 
 
 

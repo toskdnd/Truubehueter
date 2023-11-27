@@ -1,6 +1,23 @@
 import pygame
 
 floorheight = 110
+class Projectile(pygame.sprite.Sprite):
+    def __init__(self, x, y, direction, sprite):
+        super.__init__()
+        self.image = sprite
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.direction = direction
+        self.speed = 10
+
+    def update(self):
+        self.rect.x += self.rect.x * self.speed
+
+
+
+
+
 
 
 class Fighter():
@@ -27,6 +44,12 @@ class Fighter():
         self.hit = False
         self.health = 100
         self.alive = True
+        self.jump_sound = pygame.mixer.Sound(r"sounds\jump.wav")
+        self.gun_sound = pygame.mixer.Sound(r"sounds\gun.wav")
+        self.slap_sound = pygame.mixer.Sound(r"sounds\slap.wav")
+        self.sword_miss_sound = pygame.mixer.Sound(r"sounds\sword_no_hit.wav")
+        self.sword_hit_sound = pygame.mixer.Sound(r"sounds\sword_with_hit.wav")
+        self.die_sound = pygame.mixer.Sound(r"sounds\sterben.wav")
 
     def load_images(self, sprite_sheet, animation_steps):
         # extract images from spritesheet
@@ -68,6 +91,8 @@ class Fighter():
                 if key[pygame.K_w] and self.jump == False:
                     self.vel_y = -40
                     self.jump = True
+                    pygame.mixer.Sound.play(self.jump_sound)
+                    pygame.mixer.music.stop()
                 # lmao fuck following the tutorial ill do it myself -> see line 24
                 if self.attacking == False:
                     # attack inputs
@@ -96,6 +121,8 @@ class Fighter():
                 if key[pygame.K_UP] and self.jump == False:
                     self.vel_y = -40
                     self.jump = True
+                    pygame.mixer.Sound.play(self.jump_sound)
+                    pygame.mixer.music.stop()
                 # lmao fuck following the tutorial ill do it myself -> see line 24
                 if self.attacking == False:
                     # attack inputs
@@ -170,6 +197,26 @@ class Fighter():
         #check if enough time has passed since the last update
         if pygame.time.get_ticks() - self.update_time > animation_cooldown:
             self.frame_index += 1
+            if self.action == 3 and self.frame_index == 5:
+                attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width*self.flip), self.rect.y,
+                                             2.4 * self.rect.width,
+                                             self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+                if attacking_rect.colliderect(
+                        target.rect):  # introduce generic variable so the target can be defined for each fighter
+                    target.health -= 10
+                    target.hit = True
+                pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+            elif self.action == 4 and self.frame_index == 3:
+                attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width*self.flip), self.rect.y - 180,
+                                             1.5 * self.rect.width,
+                                             2 * self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+                if attacking_rect.colliderect(
+                        target.rect):  # introduce generic variable so the target can be defined for each fighter
+                    target.health -= 10
+                    target.hit = True
+                pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+
+
             self.update_time = pygame.time.get_ticks()
         #check whether animation has finished
         if self.frame_index >= len(self.animation_list[self.action]):
@@ -196,23 +243,22 @@ class Fighter():
         delay_timer = pygame.time.get_ticks()
         if self.attack_cooldown == 0:
             self.attacking = True
-            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2.4 * self.rect.width, self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+            '''attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y, 2.4 * self.rect.width, self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
             if attacking_rect.colliderect(target.rect):  # introduce generic variable so the target can be defined for each fighter
                 target.health -= 10
                 target.hit = True
-            pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
+            pygame.draw.rect(surface, (0, 255, 0), attacking_rect)'''
 
     # attack variation
     def attack2(self, surface, target):
         now = pygame.time.get_ticks()
         if self.attack_cooldown == 0:
             self.attacking = True
-            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width * self.flip), self.rect.y-180, 1.5 * self.rect.width, 2*self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
+            attacking_rect = pygame.Rect(self.rect.centerx - (2 * self.rect.width), self.rect.y-180, 1.5 * self.rect.width, 2*self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
             if attacking_rect.colliderect(target.rect):  # introduce generic variable so the target can be defined for each fighter
                 target.health -= 10
                 target.hit = True
             pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
-
 
 
 
@@ -228,5 +274,8 @@ class Fighter():
     def draw(self, surface):
         #reuse the self.flip variable
         img = pygame.transform.flip(self.image, self.flip, False)
-        pygame.draw.rect(surface, (255, 0, 0), self.rect)
+        #pygame.draw.rect(surface, (255, 0, 0), self.rect)
         surface.blit(img, (self.rect.x - (self.offset[0] * self.image_scale), self.rect.y - (self.offset[1] * self.image_scale)))
+
+    #def hitbox_check(self, hit_data):
+        #pass

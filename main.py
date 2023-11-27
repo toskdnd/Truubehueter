@@ -19,7 +19,7 @@ RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 
 #define game variables
-intro_count = 3
+intro_count = 0
 last_count_update = pygame.time.get_ticks()
 
 
@@ -27,10 +27,11 @@ last_count_update = pygame.time.get_ticks()
 STICKMAN_SIZE = 162  # character size withhin spritesheet
 STICKMAN_SCALE = 4
 STICKMAN_OFFSET = [72, 56] #find through testing
-STICKMAN_DATA = [STICKMAN_SIZE, STICKMAN_SCALE, STICKMAN_OFFSET]
-TEMPORARY_SIZE = 162
-TEMPORARY_SCALE = 4
-TEMPORARY_OFFSET = [72, 56]
+STICKMAN_DATA = [STICKMAN_SIZE, STICKMAN_SCALE, STICKMAN_OFFSET, 0]
+TEMPORARY_SIZE = 63 #Temporary isch momentan Anatol sin teil
+TEMPORARY_SCALE = 4.4
+TEMPORARY_YOFFSET = 5
+TEMPORARY_OFFSET = [25, 9]
 TEMPORARY_DATA = [TEMPORARY_SIZE, TEMPORARY_SCALE, TEMPORARY_OFFSET]
 
 # load a background image
@@ -38,11 +39,11 @@ bg_image = pygame.image.load("assets/images/background/template background.png")
 
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
-temporary_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
+temporary_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
 
 # define number of frames per animation
 STICKMAN_ANIMATION_STEPS = [10, 8, 1, 7, 7, 3, 7]
-TEMPORARY_ANIMATION_STEPS = [10, 8, 1, 7, 7, 3, 7]
+TEMPORARY_ANIMATION_STEPS = [5, 6, 1, 5, 6, 2, 8]
 
 
 # function to display background image
@@ -62,8 +63,8 @@ def draw_health_bar(health, x, y):
 
 
 # create fighters instances
-fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS)
-fighter_2 = Fighter(2, SCREEN_WIDTH-280, SCREEN_HEIGHT-400, True,  TEMPORARY_DATA, temporary_sheet,TEMPORARY_ANIMATION_STEPS)  # the temporary ones are temporary place holders for it to work
+fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS, 0)
+fighter_2 = Fighter(2, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, True,  TEMPORARY_DATA, temporary_sheet,TEMPORARY_ANIMATION_STEPS, TEMPORARY_YOFFSET)  # the temporary ones are temporary place holders for it to work
 
 #animation hit issue
 delay = 0

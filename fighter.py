@@ -21,13 +21,13 @@ class Projectile(pygame.sprite.Sprite):
 
 
 class Fighter():
-    def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps):
+    def __init__(self, player, x, y, flip, data, sprite_sheet, animation_steps, yoffset):
         self.player = player
         self.size = data[0]  # goes to the first item of the list
         self.image_scale = data[1]  # takes second data fed in by STICKMAN_DATA/ TEMPORARY_DATA
         self.offset = data[2]
         self.flip = flip
-        self.animation_list = self.load_images(sprite_sheet, animation_steps)
+        self.animation_list = self.load_images(sprite_sheet, animation_steps, yoffset)
         self.action = 0  # 0 idle, 1 death, 2 fall, 3 idle, 4 jump, 5 run, 6 take hit| currently for stickman, see line +- 40 in main.py
         self.frame_index = 0
         self.image = self.animation_list[self.action][self.frame_index]  # as frame index increases, the animation progresses
@@ -51,14 +51,14 @@ class Fighter():
         self.sword_hit_sound = pygame.mixer.Sound(r"sounds\sword_with_hit.wav")
         self.death_sound = pygame.mixer.Sound(r"sounds\sterben.wav")
 
-    def load_images(self, sprite_sheet, animation_steps):
+    def load_images(self, sprite_sheet, animation_steps, yoffset):
         # extract images from spritesheet
         animation_list = []  # create master list that contains all animation frames
         for y, animation in enumerate(animation_steps):  # here y tracks the number of loops that have passed
             temp_img_list = []
             for x in range(animation):
-                temp_img = sprite_sheet.subsurface(x * self.size, y * self.size, self.size,self.size)  # size of each square sprite
-                temp_img_list.append(pygame.transform.scale(temp_img, (self.size * self.image_scale, self.size * self.image_scale)))
+                temp_img = sprite_sheet.subsurface(x * self.size, y * self.size+yoffset, self.size, self.size+yoffset)  # size of each square sprite
+                temp_img_list.append(pygame.transform.scale(temp_img, (self.size * self.image_scale, (self.size+yoffset) * self.image_scale)))
             animation_list.append(temp_img_list)
         return animation_list
 
@@ -203,7 +203,7 @@ class Fighter():
                                              self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
                 if attacking_rect.colliderect(
                         target.rect):  # introduce generic variable so the target can be defined for each fighter
-                    target.health -= 10
+                    target.health -= 20
                     target.hit = True
                 #pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
             elif self.action == 4 and self.frame_index == 3:
@@ -212,7 +212,7 @@ class Fighter():
                                              2 * self.rect.height)  # the added self.flip argument line equals 0, if the statement is false, therefore the default direction stays righthand
                 if attacking_rect.colliderect(
                         target.rect):  # introduce generic variable so the target can be defined for each fighter
-                    target.health -= 10
+                    target.health -= 15
                     target.hit = True
                 #pygame.draw.rect(surface, (0, 255, 0), attacking_rect)
 

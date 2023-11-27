@@ -39,7 +39,7 @@ GIOVANNI_OFFSET = [25, 9]
 GIOVANNI_DATA = [GIOVANNI_SIZE, GIOVANNI_SCALE, GIOVANNI_OFFSET]
 
 # load a background image
-bg_image = pygame.image.load("assets/images/background/template background.png").convert_alpha()
+bg_image = pygame.image.load("assets/images/background/Shee green scenery.png").convert_alpha()
 
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()

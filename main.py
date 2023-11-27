@@ -1,6 +1,10 @@
 import pygame
 from fighter import Fighter
 
+#letting user pick character
+USER_1 = int(input("Player one choose Character: 0 = Stickman, 1= Pizza Guy\n"))
+USER_2 = int(input("Player two choose Character: 0 = Stickman, 1= Pizza Guy\n"))
+
 pygame.init()
 
 # create game window
@@ -28,22 +32,32 @@ STICKMAN_SIZE = 162  # character size withhin spritesheet
 STICKMAN_SCALE = 4
 STICKMAN_OFFSET = [72, 56] #find through testing
 STICKMAN_DATA = [STICKMAN_SIZE, STICKMAN_SCALE, STICKMAN_OFFSET, 0]
-TEMPORARY_SIZE = 63 #Temporary isch momentan Anatol sin teil
-TEMPORARY_SCALE = 4.4
-TEMPORARY_YOFFSET = 5
-TEMPORARY_OFFSET = [25, 9]
-TEMPORARY_DATA = [TEMPORARY_SIZE, TEMPORARY_SCALE, TEMPORARY_OFFSET]
+GIOVANNI_SIZE = 63 #GIOVANNI isch momentan Anatol sin teil
+GIOVANNI_SCALE = 4.4
+GIOVANNI_YOFFSET = 5
+GIOVANNI_OFFSET = [25, 9]
+GIOVANNI_DATA = [GIOVANNI_SIZE, GIOVANNI_SCALE, GIOVANNI_OFFSET]
 
 # load a background image
 bg_image = pygame.image.load("assets/images/background/template background.png").convert_alpha()
 
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
-temporary_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
+GIOVANNI_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
 
 # define number of frames per animation
 STICKMAN_ANIMATION_STEPS = [2, 8, 1, 7, 7, 3, 7]
-TEMPORARY_ANIMATION_STEPS = [5, 6, 1, 5, 6, 2, 8]
+GIOVANNI_ANIMATION_STEPS = [5, 6, 1, 5, 6, 2, 8]
+
+#preparing for a general character selection menu
+GIOVANNI_CHARACTER_DATA = [2, 200, SCREEN_HEIGHT-400, True,  GIOVANNI_DATA, GIOVANNI_sheet,GIOVANNI_ANIMATION_STEPS, GIOVANNI_YOFFSET]
+STICKMAN_CHARACTER_DATA = [1, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS, 0]
+MASTER_CHARACTER_DATA = [STICKMAN_CHARACTER_DATA, GIOVANNI_CHARACTER_DATA]
+
+
+
+#letting user pick character
+#USER_1 = int(input("Player one choose Character: 0 = Stickman, 1= Pizza Guy\n")) shifted to the top for convenience
 
 
 # function to display background image
@@ -63,8 +77,8 @@ def draw_health_bar(health, x, y):
 
 
 # create fighters instances
-fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS, 0)
-fighter_2 = Fighter(2, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, True,  TEMPORARY_DATA, temporary_sheet,TEMPORARY_ANIMATION_STEPS, TEMPORARY_YOFFSET)  # the temporary ones are temporary place holders for it to work
+fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False ,MASTER_CHARACTER_DATA[USER_1][4], MASTER_CHARACTER_DATA[USER_1][5],MASTER_CHARACTER_DATA[USER_1][6],MASTER_CHARACTER_DATA[USER_1][7])
+fighter_2 = Fighter(2, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, True ,MASTER_CHARACTER_DATA[USER_2][4], MASTER_CHARACTER_DATA[USER_2][5],MASTER_CHARACTER_DATA[USER_2][6],MASTER_CHARACTER_DATA[USER_2][7])  # the GIOVANNI ones are GIOVANNI place holders for it to work
 
 #animation hit issue
 delay = 0

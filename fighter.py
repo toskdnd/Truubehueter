@@ -45,12 +45,12 @@ class Fighter():
         self.hit = False
         self.health = 100
         self.alive = True
-        self.jump_sound = pygame.mixer.Sound(r"sounds\jump.wav")
-        self.gun_sound = pygame.mixer.Sound(r"sounds\gun.wav")
-        self.slap_sound = pygame.mixer.Sound(r"sounds\slap.wav")
-        self.sword_miss_sound = pygame.mixer.Sound(r"sounds\sword_no_hit.wav")
-        self.sword_hit_sound = pygame.mixer.Sound(r"sounds\sword_with_hit.wav")
-        self.death_sound = pygame.mixer.Sound(r"sounds\sterben.wav")
+        self.jump_sound = pygame.mixer.Sound(r"assets/sounds\jump.wav")
+        self.gun_sound = pygame.mixer.Sound(r"assets/sounds\gun.wav")
+        self.slap_sound = pygame.mixer.Sound(r"assets/sounds\slap.wav")
+        self.sword_miss_sound = pygame.mixer.Sound(r"assets/sounds\sword_no_hit.wav")
+        self.sword_hit_sound = pygame.mixer.Sound(r"assets/sounds\sword_with_hit.wav")
+        self.death_sound = pygame.mixer.Sound(r"assets/sounds\sterben.wav")
 
     def load_images(self, sprite_sheet, animation_steps, yoffset):
         # extract images from spritesheet

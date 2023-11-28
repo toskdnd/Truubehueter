@@ -3,7 +3,7 @@ Mir mached es spiel
 Es isch es bitz scuffed, aber macht ja nüt
 was no astaht:
 Menu screen
-Application
+Application -> almost done
 Startup
 AI
 Projectiles

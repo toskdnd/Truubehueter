@@ -49,7 +49,7 @@ bg_image = pygame.image.load("assets/images/background/template background.png")
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
 GIOVANNI_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
-BOSS_sheet = pygame.image.load("assets/images/character vincent/Vincent.png").convert_alpha()
+BOSS_sheet = pygame.image.load("assets/images/character vincent/boss.png").convert_alpha()
 
 # define number of frames per animation
 STICKMAN_ANIMATION_STEPS = [2, 8, 1, 7, 7, 3, 7]

@@ -1,9 +1,9 @@
 import pygame
-from figther_headless import Fighter
+from fighter import Fighter
 
 #letting user pick character
-USER_1 = 2 # int(input("Player one choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
-USER_2 = 0 # int(input("Player two choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
+USER_1 = 3 # int(input("Player one choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
+USER_2 = 3 # int(input("Player two choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
 
 
 # create game window
@@ -41,6 +41,11 @@ BOSS_SCALE = 2.2
 BOSS_YOFFSET = 0
 BOSS_OFFSET = [35, 15]
 BOSS_DATA = [BOSS_SIZE, BOSS_SCALE, BOSS_OFFSET]
+DISABLO_SIZE = 89
+DISABLO_SCALE = 4.5
+DISABLO_YOFFSET = 0
+DISABLO_OFFSET = [37,26]
+DISABLO_DATA = [DISABLO_SIZE, DISABLO_SCALE, DISABLO_OFFSET]
 
 # load a background image
 bg_image = pygame.image.load("assets/images/background/template background.png").convert_alpha()
@@ -49,17 +54,20 @@ bg_image = pygame.image.load("assets/images/background/template background.png")
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
 GIOVANNI_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
 BOSS_sheet = pygame.image.load("assets/images/character vincent/boss.png").convert_alpha()
+DISABLO_sheet = pygame.image.load("assets/images/character noah/sheet.png").convert_alpha()
 
 # define number of frames per animation
 STICKMAN_ANIMATION_STEPS = [2, 8, 1, 7, 7, 3, 7]
 GIOVANNI_ANIMATION_STEPS = [5, 6, 1, 5, 6, 2, 8]
 BOSS_ANIMATION_STEPS = [2, 2, 1, 6, 3, 2, 6]
+DISABLO_ANIMATION_STEPS = [4, 7, 2, 5, 4, 2, 10]
 
 #preparing for a general character selection menu
 GIOVANNI_CHARACTER_DATA = [2, 200, SCREEN_HEIGHT-400, True,  GIOVANNI_DATA, GIOVANNI_sheet,GIOVANNI_ANIMATION_STEPS, GIOVANNI_YOFFSET]
 STICKMAN_CHARACTER_DATA = [1, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, False, STICKMAN_DATA, stickman_sheet, STICKMAN_ANIMATION_STEPS, 0]
 VINCENT_CHARACTER_DATA = [0, 0, 0 , 0, BOSS_DATA, BOSS_sheet, BOSS_ANIMATION_STEPS, 0]
-MASTER_CHARACTER_DATA = [STICKMAN_CHARACTER_DATA, GIOVANNI_CHARACTER_DATA, VINCENT_CHARACTER_DATA]
+DISABLO_CHARACTER_DATA = [0, 0, 0, 0, DISABLO_DATA, DISABLO_sheet, DISABLO_ANIMATION_STEPS, DISABLO_YOFFSET]
+MASTER_CHARACTER_DATA = [STICKMAN_CHARACTER_DATA, GIOVANNI_CHARACTER_DATA, VINCENT_CHARACTER_DATA, DISABLO_CHARACTER_DATA]
 
 
 

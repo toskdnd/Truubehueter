@@ -1,5 +1,6 @@
 import pygame
 from fighter import Fighter
+from menu import showWelcomeAnimation
 
 #letting user pick character
 USER_1 = 3 # int(input("Player one choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
@@ -98,9 +99,10 @@ def main():
 
     pygame.init()
     while not quit:
-        characaterInfo = showWelcomeAnimation()
+        characterInfo = showWelcomeAnimation()
         print("showWelcomeAnimation OK")
-        finishInfo = mainGame(characaterInfo)
+
+        finishInfo = mainGame(characterInfo)
         print("finishInfo OK")
         quit = finishInfo["quit"]
 
@@ -108,16 +110,16 @@ def main():
 
     pygame.quit()
 
-def showWelcomeAnimation():
-    pass
 
 
 def showGameOverScreen(finishInfo):
     pass
 
-def reset(characaterInfo):
+def reset(characterInfo):
     global fighter_1, fighter_2
     # create fighters instances
+    USER_1 = characterInfo[0]
+    USER_2 = characterInfo[1]
     fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False ,MASTER_CHARACTER_DATA[USER_1][4], MASTER_CHARACTER_DATA[USER_1][5],MASTER_CHARACTER_DATA[USER_1][6],MASTER_CHARACTER_DATA[USER_1][7])
     fighter_2 = Fighter(2, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, True ,MASTER_CHARACTER_DATA[USER_2][4], MASTER_CHARACTER_DATA[USER_2][5],MASTER_CHARACTER_DATA[USER_2][6],MASTER_CHARACTER_DATA[USER_2][7])  # the GIOVANNI ones are GIOVANNI place holders for it to work
 
@@ -135,9 +137,9 @@ def reset(characaterInfo):
 
 
 
-def mainGame(characaterInfo):
+def mainGame(characterInfo):
     # create game loop (never load sprites/images withhin gameloop if background)
-    reset(characaterInfo)
+    reset(characterInfo)
     death_counter = 0
 
 

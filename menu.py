@@ -11,7 +11,7 @@ def showWelcomeAnimation():
     First = True
     characterSelect1 = False
     characterSelect2 = False
-    UserID = [1, 2]
+    UserID = [-1,-1]
 
 
     #define fonts
@@ -45,6 +45,8 @@ def showWelcomeAnimation():
             pygame.draw.rect(screen,(52,40,80), (0,0,1280,720))
             draw_text("menu", title_font,TEXT_COL,160,400)
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         characterSelect1 = True
@@ -100,11 +102,14 @@ def showWelcomeAnimation():
                     characterSelect2 = False
                     run = False
                 if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        characterSelect2 = False
+                        characterSelect1 = True
                     if event.key == pygame.K_0:
                         UserID[1] = 0
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon", title_font, TEXT_COL, 160, 300)
+                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
                         run = False
                         print("1")
 
@@ -112,7 +117,7 @@ def showWelcomeAnimation():
                         UserID[1] = 1
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon", title_font, TEXT_COL, 160, 300)
+                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
                         run = False
                         print("2")
 
@@ -120,7 +125,7 @@ def showWelcomeAnimation():
                         UserID[1] = 2
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon", title_font, TEXT_COL, 160, 300)
+                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
                         run = False
                         print("3")
 
@@ -128,7 +133,7 @@ def showWelcomeAnimation():
                         UserID[1] = 3
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon", title_font, TEXT_COL, 160, 300)
+                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
                         run = False
                         print("4")
                     else:

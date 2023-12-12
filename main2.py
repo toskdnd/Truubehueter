@@ -101,7 +101,6 @@ def main():
     while not quit:
         characterInfo = showWelcomeAnimation()
         print("showWelcomeAnimation OK")
-
         finishInfo = mainGame(characterInfo)
         print("finishInfo OK")
         quit = finishInfo["quit"]
@@ -120,6 +119,8 @@ def reset(characterInfo):
     # create fighters instances
     USER_1 = characterInfo[0]
     USER_2 = characterInfo[1]
+    if USER_1 and USER_2 == -1:
+        pygame.quit()
     fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False ,MASTER_CHARACTER_DATA[USER_1][4], MASTER_CHARACTER_DATA[USER_1][5],MASTER_CHARACTER_DATA[USER_1][6],MASTER_CHARACTER_DATA[USER_1][7])
     fighter_2 = Fighter(2, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, True ,MASTER_CHARACTER_DATA[USER_2][4], MASTER_CHARACTER_DATA[USER_2][5],MASTER_CHARACTER_DATA[USER_2][6],MASTER_CHARACTER_DATA[USER_2][7])  # the GIOVANNI ones are GIOVANNI place holders for it to work
 

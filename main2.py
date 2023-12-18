@@ -2,10 +2,11 @@ import pygame
 from fighter import Fighter
 from menu import showWelcomeAnimation
 
+
 #letting user pick character
 USER_1 = 3 # int(input("Player one choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
 USER_2 = 3 # int(input("Player two choose Character: 0 = Stickman, 1= Pizza Guy, 2 = Vincent\n"))
-
+map = 3
 
 # create game window
 SCREEN_WIDTH = 1280
@@ -49,7 +50,9 @@ DISABLO_OFFSET = [37,26]
 DISABLO_DATA = [DISABLO_SIZE, DISABLO_SCALE, DISABLO_OFFSET]
 
 # load a background image
-bg_image = pygame.image.load("assets/images/background/template background.png").convert_alpha()
+bg_image = []
+bg_image[0] = pygame.image.load("assets/images/background/template background.png").convert_alpha()
+bg_image[1] = pygame.image.load("assets/images/background/")
 
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
@@ -77,9 +80,9 @@ MASTER_CHARACTER_DATA = [STICKMAN_CHARACTER_DATA, GIOVANNI_CHARACTER_DATA, VINCE
 
 
 # function to display background image
-def draw_bg():
+def draw_bg(map):
     # if background image needs to be stretched
-    scaled_bg = pygame.transform.scale(bg_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    scaled_bg = pygame.transform.scale(bg_image[map], (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(scaled_bg, (0, 0))
 
 
@@ -115,11 +118,12 @@ def showGameOverScreen(finishInfo):
     pass
 
 def reset(characterInfo):
-    global fighter_1, fighter_2
+    global fighter_1, fighter_2, map
     # create fighters instances
     USER_1 = characterInfo[0]
     USER_2 = characterInfo[1]
-    if USER_1 and USER_2 == -1:
+    map = characterInfo[2]
+    if USER_1 or USER_2 or map == -1:
         pygame.quit()
     fighter_1 = Fighter(1, 200, SCREEN_HEIGHT-400, False ,MASTER_CHARACTER_DATA[USER_1][4], MASTER_CHARACTER_DATA[USER_1][5],MASTER_CHARACTER_DATA[USER_1][6],MASTER_CHARACTER_DATA[USER_1][7])
     fighter_2 = Fighter(2, SCREEN_WIDTH-280 , SCREEN_HEIGHT-400, True ,MASTER_CHARACTER_DATA[USER_2][4], MASTER_CHARACTER_DATA[USER_2][5],MASTER_CHARACTER_DATA[USER_2][6],MASTER_CHARACTER_DATA[USER_2][7])  # the GIOVANNI ones are GIOVANNI place holders for it to work
@@ -145,7 +149,7 @@ def mainGame(characterInfo):
 
 
     while True:
-        draw_bg()
+        draw_bg(map)
 
         # draw healthbars/show player stats
         draw_health_bar(fighter_1.health, 20, 20)

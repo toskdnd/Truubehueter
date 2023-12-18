@@ -6,12 +6,62 @@ def showWelcomeAnimation():
         img = font.render(text, True, text_col)
         screen.blit(img, (x, y))
 
+    def loading_screen():
+        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
+        screen.blit(studioLogo,(800,200))
+
+    def map_select():
+        pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                mapSelect = False
+                run = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    mapSelect = False
+                    main_menu = True
+                if event.key == pygame.K_0:
+                    UserID[2] = 0
+                    mapSelect = False
+                    characterSelect1 = True
+                    print("1")
+
+                elif event.key == pygame.K_1:
+                    UserID[2] = 1
+                    mapSelect = False
+                    characterSelect1 = True
+                    print("2")
+
+                elif event.key == pygame.K_2:
+                    UserID[2] = 2
+                    mapSelect = False
+                    characterSelect1 = True
+                    print("3")
+
+                elif event.key == pygame.K_3:
+                    UserID[2] = 3
+                    mapSelect = False
+                    characterSelect1 = True
+                    print("4")
+                else:
+                    print("niente")
+
+
+
+
     #define game variables
-    game_paused = False
+    main_menu = False
     First = True
+    mapSelect = False
     characterSelect1 = False
     characterSelect2 = False
-    UserID = [-1,-1]
+    UserID = [-1,-1,-1]
+
+    #image load
+    studioLogoRaw = pygame.image.load("assets/images/Logo.png").convert_alpha()
+    studioLogo = pygame.transform.scale_by(studioLogoRaw,5)
+
+
 
 
     #define fonts
@@ -29,18 +79,20 @@ def showWelcomeAnimation():
     while run:
 
         if (First):
-            screen.fill((52, 40, 80))
+            #loading screen
+            screen.fill((52,40,80))
+
             draw_text("Welcome to Yeetfighter", title_font, TEXT_COL, 160, 400)
             draw_text("press any key to continue...", subtitle_font, TEXT_COL, 160, 490)
             for i in range(0,1):
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
-                        game_paused = True
+                        main_menu = True
                         First = False
                     elif event.type == pygame.QUIT:
                         First = False
                         run = False
-        if game_paused == True:
+        if main_menu == True:
             screen.fill((52,40,80))
             pygame.draw.rect(screen,(52,40,80), (0,0,1280,720))
             draw_text("menu", title_font,TEXT_COL,160,400)
@@ -50,12 +102,16 @@ def showWelcomeAnimation():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         characterSelect1 = True
-                        game_paused = False
+                        main_menu = False
                     if event.key == pygame.K_ESCAPE:
-                        game_paused = False
+                        main_menu = False
                         First = True
                     if event.type == pygame.QUIT:
                         run = False
+
+        if (mapSelect):
+            map_select()
+
         if characterSelect1 == True:
             pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
             draw_text(f"Player 1 choose character", title_font,TEXT_COL,160,300)
@@ -67,7 +123,7 @@ def showWelcomeAnimation():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         characterSelect1 = False
-                        game_paused = True
+                        mapSelect = True
                     if event.key == pygame.K_0:
                         UserID[0] = 0
                         characterSelect1 = False
@@ -109,7 +165,7 @@ def showWelcomeAnimation():
                         UserID[1] = 0
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
+                        loading_screen()
                         run = False
                         print("1")
 
@@ -117,7 +173,7 @@ def showWelcomeAnimation():
                         UserID[1] = 1
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
+                        loading_screen()
                         run = False
                         print("2")
 
@@ -125,7 +181,7 @@ def showWelcomeAnimation():
                         UserID[1] = 2
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
+                        loading_screen()
                         run = False
                         print("3")
 
@@ -133,7 +189,7 @@ def showWelcomeAnimation():
                         UserID[1] = 3
                         characterSelect2 = False
                         pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-                        draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
+                        loading_screen()
                         run = False
                         print("4")
                     else:
@@ -148,4 +204,5 @@ def showWelcomeAnimation():
         pygame.display.update()
 
     return UserID
+
 

@@ -10,41 +10,6 @@ def showWelcomeAnimation():
         draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
         screen.blit(studioLogo,(800,200))
 
-    def map_select():
-        pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                mapSelect = False
-                run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    mapSelect = False
-                    main_menu = True
-                if event.key == pygame.K_0:
-                    UserID[2] = 0
-                    mapSelect = False
-                    characterSelect1 = True
-                    print("1")
-
-                elif event.key == pygame.K_1:
-                    UserID[2] = 1
-                    mapSelect = False
-                    characterSelect1 = True
-                    print("2")
-
-                elif event.key == pygame.K_2:
-                    UserID[2] = 2
-                    mapSelect = False
-                    characterSelect1 = True
-                    print("3")
-
-                elif event.key == pygame.K_3:
-                    UserID[2] = 3
-                    mapSelect = False
-                    characterSelect1 = True
-                    print("4")
-                else:
-                    print("niente")
 
 
 
@@ -110,7 +75,40 @@ def showWelcomeAnimation():
                         run = False
 
         if (mapSelect):
-            map_select()
+            pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    mapSelect = False
+                    run = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        mapSelect = False
+                        main_menu = True
+                    if event.key == pygame.K_0:
+                        UserID[2] = 0
+                        mapSelect = False
+                        characterSelect1 = True
+                        print("1")
+
+                    elif event.key == pygame.K_1:
+                        UserID[2] = 1
+                        mapSelect = False
+                        characterSelect1 = True
+                        print("2")
+
+                    elif event.key == pygame.K_2:
+                        UserID[2] = 2
+                        mapSelect = False
+                        characterSelect1 = True
+                        print("3")
+
+                    elif event.key == pygame.K_3:
+                        UserID[2] = 3
+                        mapSelect = False
+                        characterSelect1 = True
+                        print("4")
+                    else:
+                        print("niente")
 
         if characterSelect1 == True:
             pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))

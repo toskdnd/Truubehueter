@@ -122,8 +122,8 @@ class Fighter():
                 if key[pygame.K_UP] and self.jump == False:
                     self.vel_y = -40
                     self.jump = True
-                    pygame.mixer.Sound.play(self.jump_sound)
-                    pygame.mixer.music.stop()
+                    #pygame.mixer.Sound.play(self.jump_sound)
+                    #pygame.mixer.music.stop()
                 # lmao fuck following the tutorial ill do it myself -> see line 24
                 if self.attacking == False:
                     # attack inputs

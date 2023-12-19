@@ -1,4 +1,5 @@
 import pygame
+import random
 import button
 def showWelcomeAnimation():
     pygame.init()
@@ -10,21 +11,25 @@ def showWelcomeAnimation():
         draw_text(f"game will start soon...", title_font, TEXT_COL, 160, 300)
         screen.blit(studioLogo,(800,200))
 
+    def map_select():
+        screen.fill((52, 40, 80))
+        screen.blit(pygame.transform.scale_by(studioLogo,0.5),(0,0))
+        draw_text("Map selection (currently random)", title_font, TEXT_COL,150, 150)
 
 
 
 
     #define game variables
-    main_menu = False
-    First = True
     mapSelect = False
+    First = True
     characterSelect1 = False
     characterSelect2 = False
-    UserID = [-1,-1,-1]
+    UserID = [-1,-1, -1]
 
     #image load
     studioLogoRaw = pygame.image.load("assets/images/Logo.png").convert_alpha()
     studioLogo = pygame.transform.scale_by(studioLogoRaw,5)
+
 
 
 
@@ -52,63 +57,25 @@ def showWelcomeAnimation():
             for i in range(0,1):
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
-                        main_menu = True
+                        mapSelect = True
                         First = False
                     elif event.type == pygame.QUIT:
                         First = False
                         run = False
-        if main_menu == True:
-            screen.fill((52,40,80))
-            pygame.draw.rect(screen,(52,40,80), (0,0,1280,720))
-            draw_text("menu", title_font,TEXT_COL,160,400)
+        if mapSelect == True:
+            map_select()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        characterSelect1 = True
-                        main_menu = False
-                    if event.key == pygame.K_ESCAPE:
-                        main_menu = False
-                        First = True
-                    if event.type == pygame.QUIT:
-                        run = False
 
-        if (mapSelect):
-            pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                    UserID[2] = random.randint(0,2)
+
                     mapSelect = False
-                    run = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        mapSelect = False
-                        main_menu = True
-                    if event.key == pygame.K_0:
-                        UserID[2] = 0
-                        mapSelect = False
-                        characterSelect1 = True
-                        print("1")
+                    characterSelect1 = True
 
-                    elif event.key == pygame.K_1:
-                        UserID[2] = 1
-                        mapSelect = False
-                        characterSelect1 = True
-                        print("2")
 
-                    elif event.key == pygame.K_2:
-                        UserID[2] = 2
-                        mapSelect = False
-                        characterSelect1 = True
-                        print("3")
 
-                    elif event.key == pygame.K_3:
-                        UserID[2] = 3
-                        mapSelect = False
-                        characterSelect1 = True
-                        print("4")
-                    else:
-                        print("niente")
 
         if characterSelect1 == True:
             pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))

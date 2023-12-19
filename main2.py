@@ -54,6 +54,7 @@ bg_image[1] = pygame.image.load("assets/images/background/Rick.png").convert_alp
 bg_image[2] = pygame.image.load("assets/images/background/desertbackground.png").convert_alpha()
 
 
+
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
 GIOVANNI_sheet = pygame.image.load("assets/images/character anatol/GiovanniGiorgioSpritesheet.png").convert_alpha()
@@ -119,12 +120,12 @@ def showGameOverScreen(finishInfo):
 
 
 def reset(characterInfo):
-    global fighter_1, fighter_2
+    global fighter_1, fighter_2, map
     # create fighters instances
     USER_1 = characterInfo[0]
     USER_2 = characterInfo[1]
-    #map = characterInfo[2]
-    if USER_1 or USER_2 == -1:
+    map = characterInfo[2]
+    if USER_1 and USER_2 == -1:
         pygame.quit()
     fighter_1 = Fighter(1, 200, SCREEN_HEIGHT - 400, False, MASTER_CHARACTER_DATA[USER_1][4],
                         MASTER_CHARACTER_DATA[USER_1][5], MASTER_CHARACTER_DATA[USER_1][6],
@@ -151,7 +152,7 @@ def mainGame(characterInfo):
     death_counter = 0
 
     while True:
-        draw_bg(1)
+        draw_bg(map)
 
         # draw healthbars/show player stats
         draw_health_bar(fighter_1.health, 20, 20)

@@ -53,7 +53,9 @@ bg_image[0] = pygame.image.load("assets/images/background/template background.pn
 bg_image[1] = pygame.image.load("assets/images/background/Rick.png").convert_alpha()
 bg_image[2] = pygame.image.load("assets/images/background/desertbackground.png").convert_alpha()
 
-
+#load UI elements
+healthBarRaw = pygame.image.load("assets/images/background/healthbar.png").convert_alpha()
+healthBar = pygame.transform.scale_by(healthBarRaw,2)
 
 # load spritesheets
 stickman_sheet = pygame.image.load("assets/images/character tom/Spritesheet.png").convert_alpha()
@@ -92,10 +94,10 @@ def draw_bg(map):
 # creating health bars
 def draw_health_bar(health, x, y):
     ratio = health / 100
-    pygame.draw.rect(screen, WHITE,
-                     (x - 4, y - 4, 408, 38))  # the following three lines are only for aesthetic UI purposes
+# the following three lines are only for aesthetic UI purposes
     pygame.draw.rect(screen, RED, (x, y, 400, 30))
     pygame.draw.rect(screen, YELLOW, (x, y, 400 * ratio, 30))
+    screen.blit(healthBar,(x-4,y-4))
 
 
 def main():
@@ -155,8 +157,8 @@ def mainGame(characterInfo):
         draw_bg(map)
 
         # draw healthbars/show player stats
-        draw_health_bar(fighter_1.health, 20, 20)
-        draw_health_bar(fighter_2.health, SCREEN_WIDTH - 420, 20)
+        draw_health_bar(fighter_1.health, 50, 20)
+        draw_health_bar(fighter_2.health, SCREEN_WIDTH - 450, 20)
 
         # finisch if someone is dead
         if fighter_2.health * fighter_2.health == 0:

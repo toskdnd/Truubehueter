@@ -17,7 +17,9 @@ def showWelcomeAnimation():
         draw_text("Map selection (currently random)", title_font, TEXT_COL,150, 150)
 
 
-
+    #load character menu
+    characterSelectRaw = pygame.image.load("assets/images/background/characterSelect.png").convert_alpha()
+    characterSelect = pygame.transform.scale_by(characterSelectRaw, 8)
 
     #define game variables
     mapSelect = False
@@ -80,7 +82,8 @@ def showWelcomeAnimation():
         if characterSelect1 == True:
             pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
             draw_text(f"Player 1 choose character", title_font,TEXT_COL,160,300)
-            draw_text("ligmastickma(0) giovannigiorgio(1) boss(2) disablo(3)",title_font,TEXT_COL,50,400)
+            draw_text("lauch(0) giovannigiorgio(1) baguette(2) disablo(3)",title_font,TEXT_COL,50,400)
+            screen.blit(characterSelect,(170, 470))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     characterSelect1 = False
@@ -117,7 +120,8 @@ def showWelcomeAnimation():
         if characterSelect2 == True:
             pygame.draw.rect(screen, (52, 40, 80), (0, 0, 1280, 720))
             draw_text(f"Player 2 choose character", title_font, TEXT_COL, 160, 300)
-            draw_text("ligmastickma(0) giovannigiorgio(1) boss(2) disablo(3)", title_font, TEXT_COL, 50, 400)
+            draw_text("lauch(0) giovannigiorgio(1) baguette(2) disablo(3)", title_font, TEXT_COL, 50, 400)
+            screen.blit(characterSelect, (170, 470))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     characterSelect2 = False

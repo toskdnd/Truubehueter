@@ -54,7 +54,7 @@ def showWelcomeAnimation():
             #loading screen
             screen.fill((52,40,80))
 
-            draw_text("Welcome to Yeetfighter", title_font, TEXT_COL, 160, 400)
+            draw_text("Welcome to offensive Combat", title_font, TEXT_COL, 160, 400)
             draw_text("press any key to continue...", subtitle_font, TEXT_COL, 160, 490)
             for i in range(0,1):
                 for event in pygame.event.get():

@@ -11,7 +11,7 @@ USER_2 = 3  # int(input("Player two choose Character: 0 = Stickman, 1= Pizza Guy
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Yeetfighter")
+pygame.display.set_caption("Offensive Combat")
 
 # cap the framerate
 clock = pygame.time.Clock()
@@ -24,6 +24,7 @@ WHITE = (255, 255, 255)
 
 # define game variables
 intro_count = 0
+roundCounter = 0
 last_count_update = pygame.time.get_ticks()
 
 # define fighter variables
@@ -112,13 +113,18 @@ def main():
         print("finishInfo OK")
         quit = finishInfo["quit"]
 
-        showGameOverScreen(finishInfo)
+        showGameOverScreen(roundCounter)
 
     pygame.quit()
 
 
 def showGameOverScreen(finishInfo):
-    pass
+    def draw_text(text, font, text_col, x, y):
+        img = font.render(text, True, text_col)
+        screen.blit(img, (x, y))
+
+    title_font = pygame.font.SysFont("arialblack", 40)
+    draw_text(f"player one vs player two \n round{finishInfo} ", title_font,(255,255,255),400,500)
 
 
 def reset(characterInfo):
@@ -152,6 +158,7 @@ def mainGame(characterInfo):
     # create game loop (never load sprites/images withhin gameloop if background)
     reset(characterInfo)
     death_counter = 0
+    roundCounter = 0
 
     while True:
         draw_bg(map)
@@ -160,10 +167,11 @@ def mainGame(characterInfo):
         draw_health_bar(fighter_1.health, 50, 20)
         draw_health_bar(fighter_2.health, SCREEN_WIDTH - 450, 20)
 
-        # finisch if someone is dead
+        # finish if someone is dead
         if fighter_2.health * fighter_2.health == 0:
             death_counter += 1
-        if death_counter >= FPS * 2:  # 2 second dead
+        if death_counter >= FPS * 2:# 2 second dead
+            roundCounter += 1
             return {"quit": False}
 
         # move fighters
